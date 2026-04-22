@@ -52,15 +52,29 @@ public class DriverFactory {
     private static WebDriver createChrome(boolean headless) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions opts = new ChromeOptions();
-        opts.addArguments("--disable-notifications", "--disable-popup-blocking", "--no-sandbox");
-        if (headless) opts.addArguments("--headless=new", "--window-size=1920,1080");
+        opts.addArguments(
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-notifications",
+                "--disable-popup-blocking"
+        );
+        if (headless) {
+            opts.addArguments(
+                    "--headless=new",
+                    "--window-size=1920,1080",
+                    "--disable-gpu"
+            );
+        }
         return new ChromeDriver(opts);
     }
 
     private static WebDriver createFirefox(boolean headless) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions opts = new FirefoxOptions();
-        if (headless) opts.addArguments("--headless");
+        if (headless) {
+            opts.addArguments("-headless");
+            opts.addArguments("--width=1920", "--height=1080");
+        }
         return new FirefoxDriver(opts);
     }
 

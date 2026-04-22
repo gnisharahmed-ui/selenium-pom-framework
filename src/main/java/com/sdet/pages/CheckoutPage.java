@@ -51,6 +51,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public boolean isOrderConfirmed() {
+        waitForVisible(confirmationMsg);
         return isDisplayed(confirmationMsg);
     }
 }
